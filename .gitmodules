@@ -1,3 +1,6 @@
 [submodule "src/torch"]
 	path = src/torch
 	url = https://github.com/andresy/torch
+[submodule "repo/torch"]
+	path = repo/torch
+	url = https://github.com/andresy/torch
