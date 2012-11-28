@@ -9,7 +9,7 @@
 	url = https://github.com/clementfarabet/lua---sys
 [submodule "repo/parallel"]
 	path = repo/parallel
-	url = https://github.com/clementfarabet/lua---parallel
+	url = https://github.com/clementfarabet/lua---parallel.git
 [submodule "repo/optim"]
 	path = repo/optim
 	url = https://github.com/koraykv/optim
