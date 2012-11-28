@@ -1,6 +1,15 @@
-[submodule "src/torch"]
-	path = src/torch
-	url = https://github.com/andresy/torch
 [submodule "repo/torch"]
 	path = repo/torch
 	url = https://github.com/andresy/torch
+[submodule "repo/nnx"]
+	path = repo/nnx
+	url = https://github.com/clementfarabet/lua---nnx.git
+[submodule "repo/sys"]
+	path = repo/sys
+	url = https://github.com/clementfarabet/lua---sys
+[submodule "repo/parallel"]
+	path = repo/parallel
+	url = https://github.com/clementfarabet/lua---parallel
+[submodule "repo/optim"]
+	path = repo/optim
+	url = https://github.com/koraykv/optim
