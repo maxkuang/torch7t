@@ -26,15 +26,15 @@ fi
 
 # torch
 SRC=$ROOT/repo/torch
-#GO
+GO
 
 # sys
 SRC=$ROOT/repo/sys
-#GO
+GO
 
 # nnx
 SRC=$ROOT/repo/nnx
-#GO
+GO
 
 # parallel
 SRC=$ROOT/repo/parallel
@@ -42,11 +42,11 @@ GO
 
 # optim
 SRC=$ROOT/repo/optim
-#GO
+GO
 
 # DONE
 cat <<DONE
 
-DONE, Congratulations ! 
+Okay, Congratulations ! 
 PLEASE put "export PATH=\$PATH:$BIN" in ~/.bashrc, and run "source ~/.bashrc" under current shell to activate the new PATH
 DONE

@@ -13,3 +13,9 @@
 [submodule "repo/optim"]
 	path = repo/optim
 	url = https://github.com/koraykv/optim
+[submodule "repo/vsgd"]
+	path = repo/vsgd
+	url = https://github.com/rlowrance/vsgd.git
+[submodule "repo/optim2"]
+	path = repo/optim2
+	url = https://github.com/schaul/optim.git
