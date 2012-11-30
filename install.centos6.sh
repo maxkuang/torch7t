@@ -1,13 +1,36 @@
 #/bin/bash
 
+ROOT=`pwd`
+
 # 3rd
 sudo yum install cmake
-#http://download.opensuse.org/repositories/home:/fengshuo:/zeromq/CentOS_CentOS-6/home:fengshuo:zeromq.repo
+# YUM REPO
+# http://download.opensuse.org/repositories/home:/fengshuo:/zeromq/CentOS_CentOS-6/home:fengshuo:zeromq.repo
 sudo yum install zeromq-devel
 
 # src
 git submodule init
 git submodule update
+
+REPO=$ROOT/repo
+PKG=$ROOT/src
+rm -rf $PKG
+mkdir -p $PKG
+# torch7
+cp -r $REPO/torch $PKG/torch7
+# sys
+cp -r $REPO/sys $PKG/sys
+# nnx
+cp -r $REPO/nnx $PKG/nnx
+# parallel
+cp -r $REPO/parallel $PKG/parallel
+# optim
+cp -r $REPO/optim $PKG/optim
+cp $REPO/optim2/vsgd.lua $PKG/optim/vsgd.lua
+echo "-- supp" >> $PKG/optim/init.lua
+echo "torch.include('optim', 'vsgd.lua')" >> $PKG/optim/init.lua
+cp $REPO/optim2/test/noisyl2.lua $PKG/optim/test/noisyl2.lua
+cp $REPO/optim2/test/test_vsgd.lua $PKG/optim/test/test_vsgd.lua
 
 # installer 
 GO() {
@@ -20,7 +43,6 @@ GO() {
         make install
 }
 
-ROOT=`pwd`
 DEST=~/local
 BIN=$DEST/bin
 LIB=$DEST/lib
@@ -32,23 +54,23 @@ if [ -d "$BIN" ] && [[ ":$PATH:" != *":$BIN:"* ]]; then
 fi
 
 # torch
-SRC=$ROOT/repo/torch
-GO
+SRC=$PKG/torch7
+#GO
 
 # sys
-SRC=$ROOT/repo/sys
-GO
+SRC=$PKG/sys
+#GO
 
 # nnx
-SRC=$ROOT/repo/nnx
-GO
+SRC=$PKG/nnx
+#GO
 
 # parallel
-SRC=$ROOT/repo/parallel
-GO
+SRC=$PKG/parallel
+#GO
 
 # optim
-SRC=$ROOT/repo/optim
+SRC=$PKG/optim
 GO
 
 # DONE
