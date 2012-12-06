@@ -19,3 +19,6 @@
 [submodule "repo/optim2"]
 	path = repo/optim2
 	url = https://github.com/schaul/optim.git
+[submodule "repo/xlua"]
+	path = repo/xlua
+	url = https://github.com/clementfarabet/lua---xlua.git
