@@ -1,77 +1,50 @@
 #/bin/bash
 
+INSTALL=(torch7 sys xlua nnx parallel optim)
+
+# DEPENDENCY
+# sudo yum install cmake
+# sudo yum install zeromq-devel
+# (http://download.opensuse.org/repositories/home:/fengshuo:/zeromq/CentOS_CentOS-6/home:fengshuo:zeromq.repo)
+
+# SETUP
 ROOT=`pwd`
+ROOT_REPO=$ROOT/repo
+ROOT_SRC=$ROOT/src
+DEST=~/local
 
-# 3rd
-sudo yum install cmake
-# YUM REPO
-# http://download.opensuse.org/repositories/home:/fengshuo:/zeromq/CentOS_CentOS-6/home:fengshuo:zeromq.repo
-sudo yum install zeromq-devel
-
-# src
+# REPO
 git submodule init
 git submodule update
 
-REPO=$ROOT/repo
-PKG=$ROOT/src
-rm -rf $PKG
-mkdir -p $PKG
-# torch7
-cp -r $REPO/torch $PKG/torch7
-# sys
-cp -r $REPO/sys $PKG/sys
-# nnx
-cp -r $REPO/nnx $PKG/nnx
-# parallel
-cp -r $REPO/parallel $PKG/parallel
-# optim
-cp -r $REPO/optim $PKG/optim
-cp $REPO/optim2/vsgd.lua $PKG/optim/vsgd.lua
-echo "-- supp" >> $PKG/optim/init.lua
-echo "torch.include('optim', 'vsgd.lua')" >> $PKG/optim/init.lua
-cp $REPO/optim2/test/noisyl2.lua $PKG/optim/test/noisyl2.lua
-cp $REPO/optim2/test/test_vsgd.lua $PKG/optim/test/test_vsgd.lua
+# INSTALL
+source $ROOT/install.repo.sh
+for item in ${INSTALL[*]}
+do
+    SRC=$ROOT_SRC/$item
+    if [ ! -d $SRC ]; then
+	printf "INSTALLING %s from %s ...\n" $item $SRC
+	eval $(printf "install_%s" $item)
+    else
+	printf "ALREADY INSTALLED %s from %s ...\n" $item $SRC
+#	printf "RE-INSTALL %s from %s ...\n" $item $SRC
+#	eval $(printf "install_%s" $item)
+    fi
+done
 
-# installer 
-GO() {
-        mkdir -p $DEST
-        cd $SRC
-        mkdir -p build
-        cd build
-	rm -rf *
-        cmake .. -DCMAKE_INSTALL_PREFIX=$DEST
-        make install
-}
-
-DEST=~/local
-BIN=$DEST/bin
-LIB=$DEST/lib
-if [ -d "$BIN" ] && [[ ":$PATH:" != *":$BIN:"* ]]; then
-        echo "export PATH=\$PATH:$BIN" >> ~/.bashrc
-        echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$LIB" >>~/.bashrc
-	export PATH=$PATH:$BIN
-	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIB
+# ENV 
+ENV_BIN=$DEST/bin
+ENV_LIB=$DEST/lib
+if [ -d "$ENV_BIN" ] && [[ ":$PATH:" != *":$ENV_BIN:"* ]]; then
+#    if [ -f "~/.bashrc" ]; then
+#	pattern="export PATH=\$PATH:$BIN"
+#	result=`grep -i "$pattern" ~/.bashrc` # TODO check duplication
+#	echo $result;
+#    else
+    echo "export PATH=\$PATH:$BIN" >> ~/.bashrc
+    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$ENV_LIB" >>~/.bashrc	
+#    fi
 fi
-
-# torch
-SRC=$PKG/torch7
-#GO
-
-# sys
-SRC=$PKG/sys
-#GO
-
-# nnx
-SRC=$PKG/nnx
-#GO
-
-# parallel
-SRC=$PKG/parallel
-#GO
-
-# optim
-SRC=$PKG/optim
-GO
 
 # DONE
 cat <<DONE
