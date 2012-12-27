@@ -25,3 +25,6 @@
 [submodule "repo/mattorch"]
 	path = repo/mattorch
 	url = https://github.com/clementfarabet/lua---mattorch
+[submodule "repo/image"]
+	path = repo/image
+	url = https://github.com/clementfarabet/lua---image.git
