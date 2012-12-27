@@ -64,6 +64,15 @@ install_mattorch() {
     GO
 }
 
+install_image() {
+    # repo -> src
+    rm -r $SRC
+    mkdir -p $SRC
+    cp -r $ROOT_REPO/image/* $SRC
+    # install
+    GO
+}
+
 install_optim() {
     # repo -> src
     rm -r $SRC
