@@ -11,7 +11,7 @@ INSTALL=(torch7 sys xlua nnx parallel optim mattorch image)
 ROOT=`pwd`
 ROOT_REPO=$ROOT/repo
 ROOT_SRC=$ROOT/src
-DEST=~/local
+DEST=~/local/torch7t
 
 # REPO
 git submodule init
