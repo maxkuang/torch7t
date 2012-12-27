@@ -41,7 +41,7 @@ if [ -d "$ENV_BIN" ] && [[ ":$PATH:" != *":$ENV_BIN:"* ]]; then
 #	result=`grep -i "$pattern" ~/.bashrc` # TODO check duplication
 #	echo $result;
 #    else
-    echo "export PATH=\$PATH:$BIN" >> ~/.bashrc
+    echo "export PATH=\$PATH:$ENV_BIN" >> ~/.bashrc
     echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$ENV_LIB" >>~/.bashrc	
 #    fi
 fi

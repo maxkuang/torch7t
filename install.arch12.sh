@@ -1,11 +1,11 @@
 #/bin/bash
 
-ROOT=`pwd`
+INSTALL=(torch7 sys xlua nnx parallel optim)
 
-# 3rd
+# DEPENDENCY
 #sudo pacman -Syy
 #sudo pacman -S cmake
-# https://aur.archlinux.org/packages/zeromq-dev/
+####https://aur.archlinux.org/packages/zeromq-dev/
 #mkdir -p 3rd
 #cd 3rd
 #wget https://aur.archlinux.org/packages/ze/zeromq-dev/zeromq-dev.tar.gz
@@ -14,82 +14,43 @@ ROOT=`pwd`
 #makepkg
 #sudo pacman -U zeromq-dev-3.2.0-1-i686.pkg.tar.xz 
 
-# src
-cd $ROOT
+# SETUP
+ROOT=`pwd`
+ROOT_REPO=$ROOT/repo
+ROOT_SRC=$ROOT/src
+DEST=~/local/torch7t
+
+# REPO
 git submodule init
 git submodule update
 
-REPO=$ROOT/repo
-PKG=$ROOT/src
-rm -rf $PKG
-mkdir -p $PKG
-# torch7
-cp -r $REPO/torch $PKG/torch7
-# sys
-cp -r $REPO/sys $PKG/sys
-# xlua
-cp -r $REPO/xlua $PKG/xlua
-# nnx
-cp -r $REPO/nnx $PKG/nnx
-# parallel
-cp -r $REPO/parallel $PKG/parallel
-# optim
-cp -r $REPO/optim $PKG/optim
-cp $REPO/optim2/vsgd.lua $PKG/optim/vsgd.lua
-echo "-- supp" >> $PKG/optim/init.lua
-echo "torch.include('optim', 'vsgd.lua')" >> $PKG/optim/init.lua
-cp $REPO/optim2/test/noisyl2.lua $PKG/optim/test/noisyl2.lua
-cp $REPO/optim2/test/test_vsgd.lua $PKG/optim/test/test_vsgd.lua
+# INSTALL
+source $ROOT/install.repo.sh
+for item in ${INSTALL[*]}
+do
+    SRC=$ROOT_SRC/$item
+    if [ ! -d $SRC ]; then
+        printf "INSTALLING %s from %s ...\n" $item $SRC
+        eval $(printf "install_%s" $item)
+    else
+        printf "ALREADY INSTALLED %s from %s ...\n" $item $SRC
+#       printf "RE-INSTALL %s from %s ...\n" $item $SRC
+#       eval $(printf "install_%s" $item)
+    fi
+done
 
-# installer 
-GO() {
-        mkdir -p $DEST
-        cd $SRC
-        mkdir -p build
-        cd build
-	rm -rf *
-        cmake .. -DCMAKE_INSTALL_PREFIX=$DEST
-        make install
-}
-
-DEST=~/local
-BIN=$DEST/bin
-LIB=$DEST/lib
-if [ -d "$BIN" ] && [[ ":$PATH:" != *":$BIN:"* ]]; then
-	echo "append PATH and LD_LIBRARY_PATH .."
-        echo "export PATH=\$PATH:$BIN" >> ~/.bashrc
-        echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$LIB" >>~/.bashrc
-	export PATH=$PATH:$BIN
-	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LIB
+# ENV
+ENV_BIN=$DEST/bin
+ENV_LIB=$DEST/lib
+if [ -d "$ENV_BIN" ] && [[ ":$PATH:" != *":$ENV_BIN:"* ]]; then
+    echo "export PATH=\$PATH:$ENV_BIN" >> ~/.bashrc
+    echo "export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:$ENV_LIB" >>~/.bashrc
 fi
-
-# torch
-SRC=$PKG/torch7
-#GO
-
-# sys
-SRC=$PKG/sys
-#GO
-
-# xlua
-SRC=$PKG/xlua
-GO
-
-# nnx
-#SRC=$PKG/nnx
-#GO
-
-# parallel
-SRC=$PKG/parallel
-#GO
-
-# optim
-SRC=$PKG/optim
-#GO
 
 # DONE
 cat <<DONE
 
-Good, Congratulations ! 
+Good, Congratulations !
 PLEASE run "source ~/.bashrc" under current shell to activate the new PATH
 DONE
+
