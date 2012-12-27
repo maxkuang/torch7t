@@ -23,5 +23,5 @@
 	path = repo/xlua
 	url = https://github.com/clementfarabet/lua---xlua.git
 [submodule "repo/mattorch"]
-	path = repp/mattorch
-	url = https://github.com/clementfarabet/lua---mattorch.git
+	path = repo/mattorch
+	url = https://github.com/clementfarabet/lua---mattorch

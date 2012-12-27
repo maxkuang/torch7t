@@ -1,6 +1,6 @@
 #/bin/bash
 
-INSTALL=(torch7 sys xlua nnx parallel optim)
+INSTALL=(torch7 sys xlua nnx parallel optim mattorch)
 
 # DEPENDENCY
 #sudo pacman -Syy

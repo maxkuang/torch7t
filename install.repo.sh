@@ -55,6 +55,15 @@ install_parallel() {
     GO
 }
 
+install_mattorch() {
+    # repo -> src
+    rm -r $SRC
+    mkdir -p $SRC
+    cp -r $ROOT_REPO/mattorch/* $SRC
+    # install
+    GO
+}
+
 install_optim() {
     # repo -> src
     rm -r $SRC
