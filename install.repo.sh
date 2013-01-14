@@ -6,7 +6,8 @@ GO() {
     mkdir -p build
     cd build
     rm -r *
-    cmake .. -DCMAKE_INSTALL_PREFIX=$DEST
+    cmake .. -DCMAKE_INSTALL_PREFIX=$DEST \
+	     -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++
     make install
 }
 

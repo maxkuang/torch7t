@@ -1,6 +1,6 @@
 #/bin/bash
 
-INSTALL=(torch7 sys xlua nnx parallel optim)
+INSTALL=(torch7 sys xlua nnx parallel optim mattorch image)
 
 # DEPENDENCY
 # sudo yum install cmake
@@ -11,7 +11,7 @@ INSTALL=(torch7 sys xlua nnx parallel optim)
 ROOT=`pwd`
 ROOT_REPO=$ROOT/repo
 ROOT_SRC=$ROOT/src
-DEST=~/local
+DEST=~/local/torch7t
 
 # REPO
 git submodule init
