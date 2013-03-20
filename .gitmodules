@@ -28,3 +28,6 @@
 [submodule "repo/image"]
 	path = repo/image
 	url = https://github.com/clementfarabet/lua---image.git
+[submodule "repo/torch-datasets"]
+	path = repo/torch-datasets
+	url = https://github.com/rosejn/torch-datasets.git
